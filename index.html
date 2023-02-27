@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Acme&family=Ballet:opsz@16..72&family=Corinthia&family=Dancing+Script&family=Edu+QLD+Beginner&family=Handlee&family=Inspiration&family=Lobster&family=Nabla&family=Noto+Sans+Lao+Looped&family=Noto+Serif+JP:wght@300&family=Raleway&family=Rubik+Storm&family=Silkscreen&family=Tiro+Tamil&display=swap" rel="stylesheet">
+  <link rel="stylesheet"  - updated font cdm
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <title>Weather App</title>
+</head>
+<body>
+  <section class="dob">
+    <div class="date"> <p id="demo"></p></div>
+   
+    
+
+
+    <div class="date"> <p id="dem"></p></div>
+    </section>
+    
+   
+  
+  </div>
+  <section class="top-banner">
+    <div class="container">
+      <h1 class="heading">Today's Weather</h1>
+      <form>
+        <input type="text" placeholder="Search for a city" autofocus>
+        <button type="submit">SUBMIT</button>
+        <span class="msg"></span>
+      </form>
+    </div>
+  </section>
+  <section class="ajax-section">
+    <div class="container">
+      <ul class="cities"></ul>
+    </div>
+  </section>
+  <footer class="page-footer">
+    <div class="container">
+      <small>Made by <a href="https://www.linkedin.com/in/wesley-siwela-43a048259/" target="_blank">Wesley Siwela</a> <br>  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+      </small>
+    </div>
+  </footer>
+  
+  
+  
+  
+  
+</body>
+</html>
+
+
+<script>
+  /*SEARCH BY USING A CITY NAME (e.g. athens) OR A COMMA-SEPARATED CITY NAME ALONG WITH THE COUNTRY CODE (e.g. athens,gr)*/
+  const form = document.querySelector(".top-banner form");
+  const input = document.querySelector(".top-banner input");
+  const msg = document.querySelector(".top-banner .msg");
+  const list = document.querySelector(".ajax-section .cities");
+  /*PUT YOUR OWN KEY HERE - THIS MIGHT NOT WORK
+  SUBSCRIBE HERE: https://home.openweathermap.org/users/sign_up*/
+  const apiKey = "4d8fb5b93d4af21d66a2948710284366";
+  
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const listItems = list.querySelectorAll(".ajax-section .city");
+    const inputVal = input.value;
+  
+    //ajax here
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=metric`;
+  
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        const { main, name, sys, weather } = data;
+        const icon = `https://openweathermap.org/img/wn/${
+          weather[0]["icon"]
+        }@2x.png`;
+  
+        const li = document.createElement("li");
+        li.classList.add("city");
+        const markup = `
+          <h2 class="city-name" data-name="${name},${sys.country}">
+            <span>${name}</span>
+            <sup>${sys.country}</sup>
+          </h2>
+          <div class="city-temp">${Math.round(main.temp)}<sup>°C</sup></div>
+          <figure>
+            <img class="city-icon" src=${icon} alt=${weather[0]["main"]}>
+            <figcaption>${weather[0]["description"]}</figcaption>
+          </figure>
+        `;
+        li.innerHTML = markup;
+        list.appendChild(li);
+      })
+      .catch(() => {
+        msg.textContent = "Please search for a valid city 🌍";
+      });
+  
+    msg.textContent = "";
+    form.reset();
+    input.focus();
+  });
+
+
+
+  const d = new Date();
+document.getElementById("demo").innerHTML = d.getDate();
+
+const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    
+const c = new Date();
+let month = months[c.getMonth()];
+document.getElementById("dem").innerHTML = month;
+  </script>
