@@ -53,7 +53,8 @@ body {
     background-size: 5000px;
     backdrop-filter: blur(1rem);
   padding: 70px;
-  height: 950px;
+  height: 900px;
+  width: 800px;
 }
 
 .container {
