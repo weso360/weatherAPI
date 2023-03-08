@@ -52,7 +52,7 @@ body {
   background-image: url("images/blu.jpeg");
     background-size: 5000px;
     backdrop-filter: blur(1rem);
-  #padding: 70px;
+  padding: 70px;
   height: 1000px;
 }
 
