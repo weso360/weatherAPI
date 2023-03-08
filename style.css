@@ -57,6 +57,7 @@ body {
     backdrop-filter: blur(1rem);
   padding: 70px;
   height: 950px;
+  width: 100%;
 }
 
 .container {
